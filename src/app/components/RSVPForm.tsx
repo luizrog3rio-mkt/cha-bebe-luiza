@@ -2,7 +2,8 @@
 
 import { useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { ArrowRight, CheckCircle, Gift, Sparkles } from "lucide-react";
+import { ArrowRight, CheckCircle, Gift, Sparkles, AlertCircle } from "lucide-react";
+import { supabase } from "@/lib/supabase";
 
 interface FormData {
   nome: string;
@@ -22,17 +23,30 @@ export default function RSVPForm() {
   });
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState("");
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    const confirmations = JSON.parse(localStorage.getItem("cha-luiza-confirmations") || "[]");
-    confirmations.push({ ...formData, confirmedAt: new Date().toISOString() });
-    localStorage.setItem("cha-luiza-confirmations", JSON.stringify(confirmations));
+    setError("");
+
+    const { error: dbError } = await supabase.from("confirmacoes").insert({
+      nome: formData.nome,
+      telefone: formData.telefone,
+      acompanhantes: formData.acompanhantes,
+      nomes_acompanhantes: formData.nomesAcompanhantes || null,
+      mensagem: formData.mensagem || null,
+    });
+
     setIsSubmitting(false);
+
+    if (dbError) {
+      setError("Erro ao confirmar. Tente novamente.");
+      return;
+    }
+
     setSubmitted(true);
   };
 
@@ -182,6 +196,13 @@ export default function RSVPForm() {
           placeholder="Escreva algo carinhoso..."
         />
       </motion.div>
+
+      {error && (
+        <div className="flex items-center gap-2 px-4 py-3 bg-red-50 rounded-xl border border-red-200/50 text-red-600 text-sm">
+          <AlertCircle className="w-4 h-4 flex-shrink-0" />
+          {error}
+        </div>
+      )}
 
       <motion.div
         initial={{ opacity: 0, y: 15 }}

@@ -1,25 +1,35 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Users, Phone, MessageCircle, Calendar, Trash2, Baby } from "lucide-react";
+import { Users, Phone, MessageCircle, Calendar, Trash2, Baby, RefreshCw } from "lucide-react";
+import { supabase } from "@/lib/supabase";
 
 interface Confirmation {
+  id: string;
   nome: string;
   telefone: string;
   acompanhantes: string;
-  nomesAcompanhantes?: string;
+  nomes_acompanhantes?: string;
   mensagem: string;
-  confirmedAt: string;
+  created_at: string;
 }
 
 export default function AdminPage() {
   const [confirmations, setConfirmations] = useState<Confirmation[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  const fetchData = async () => {
+    setLoading(true);
+    const { data } = await supabase
+      .from("confirmacoes")
+      .select("*")
+      .order("created_at", { ascending: false });
+    setConfirmations(data || []);
+    setLoading(false);
+  };
 
   useEffect(() => {
-    const data = JSON.parse(
-      localStorage.getItem("cha-luiza-confirmations") || "[]"
-    );
-    setConfirmations(data);
+    fetchData();
   }, []);
 
   const totalPeople = confirmations.reduce(
@@ -27,10 +37,9 @@ export default function AdminPage() {
     0
   );
 
-  const handleDelete = (index: number) => {
-    const updated = confirmations.filter((_, i) => i !== index);
-    setConfirmations(updated);
-    localStorage.setItem("cha-luiza-confirmations", JSON.stringify(updated));
+  const handleDelete = async (id: string) => {
+    await supabase.from("confirmacoes").delete().eq("id", id);
+    setConfirmations(confirmations.filter((c) => c.id !== id));
   };
 
   return (
@@ -42,6 +51,13 @@ export default function AdminPage() {
             Painel de Confirmações
           </h1>
           <p className="text-pink-400 mt-1">Chá de Bebê da Luiza</p>
+          <button
+            onClick={fetchData}
+            className="mt-3 inline-flex items-center gap-1.5 text-sm text-pink-400 hover:text-pink-600 transition-colors cursor-pointer"
+          >
+            <RefreshCw className="w-3.5 h-3.5" />
+            Atualizar
+          </button>
         </div>
 
         {/* Stats */}
@@ -61,7 +77,12 @@ export default function AdminPage() {
         </div>
 
         {/* List */}
-        {confirmations.length === 0 ? (
+        {loading ? (
+          <div className="text-center py-12 bg-white rounded-2xl shadow-md border border-pink-100">
+            <div className="w-6 h-6 border-2 border-pink-300 border-t-transparent rounded-full animate-spin mx-auto mb-3" />
+            <p className="text-pink-300">Carregando...</p>
+          </div>
+        ) : confirmations.length === 0 ? (
           <div className="text-center py-12 bg-white rounded-2xl shadow-md border border-pink-100">
             <p className="text-pink-300 text-lg">
               Nenhuma confirmação ainda...
@@ -69,9 +90,9 @@ export default function AdminPage() {
           </div>
         ) : (
           <div className="space-y-4">
-            {confirmations.map((c, i) => (
+            {confirmations.map((c) => (
               <div
-                key={i}
+                key={c.id}
                 className="bg-white rounded-2xl shadow-md border border-pink-100 p-5 hover:shadow-lg transition-shadow"
               >
                 <div className="flex items-start justify-between">
@@ -92,14 +113,14 @@ export default function AdminPage() {
                       </span>
                       <span className="flex items-center gap-1">
                         <Calendar className="w-3.5 h-3.5" />
-                        {new Date(c.confirmedAt).toLocaleDateString("pt-BR")}
+                        {new Date(c.created_at).toLocaleDateString("pt-BR")}
                       </span>
                     </div>
-                    {c.nomesAcompanhantes && (
+                    {c.nomes_acompanhantes && (
                       <div className="mt-3 flex items-start gap-2 bg-purple-50 rounded-lg p-3">
                         <Users className="w-4 h-4 text-purple-400 mt-0.5 flex-shrink-0" />
                         <p className="text-purple-600 text-sm">
-                          {c.nomesAcompanhantes}
+                          {c.nomes_acompanhantes}
                         </p>
                       </div>
                     )}
@@ -113,7 +134,7 @@ export default function AdminPage() {
                     )}
                   </div>
                   <button
-                    onClick={() => handleDelete(i)}
+                    onClick={() => handleDelete(c.id)}
                     className="text-pink-300 hover:text-red-500 transition-colors p-1 cursor-pointer"
                     title="Remover confirmação"
                   >
