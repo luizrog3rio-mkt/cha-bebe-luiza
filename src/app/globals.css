@@ -39,34 +39,28 @@ html {
 }
 
 body {
-  background: linear-gradient(135deg, #fdf2f8 0%, #fefcf3 50%, #fce7f3 100%);
+  background: linear-gradient(180deg, #fdf2f8 0%, #fef9f3 40%, #fce7f3 100%);
+  background-attachment: fixed;
   min-height: 100vh;
-  min-height: 100dvh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-/* Safe area for notched phones */
-.safe-area-padding {
-  padding-left: max(1rem, env(safe-area-inset-left));
-  padding-right: max(1rem, env(safe-area-inset-right));
-  padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  overflow-x: hidden;
 }
 
 /* Fluid typography */
 .text-fluid-hero {
-  font-size: clamp(3rem, 8vw, 4.5rem);
+  font-size: clamp(2.75rem, 10vw, 4.5rem);
 }
 
 .text-fluid-body {
-  font-size: clamp(0.938rem, 2.5vw, 1.125rem);
+  font-size: clamp(0.875rem, 2.5vw, 1.125rem);
 }
 
-.text-fluid-detail {
-  font-size: clamp(1.75rem, 5vw, 2rem);
+.text-fluid-number {
+  font-size: clamp(1.5rem, 5vw, 1.875rem);
 }
 
-/* Animations */
+/* Animations - elements are VISIBLE by default, animate as enhancement */
 @keyframes float {
   0%, 100% { transform: translateY(0px); }
   50% { transform: translateY(-8px); }
@@ -75,7 +69,7 @@ body {
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(16px);
   }
   to {
     opacity: 1;
@@ -88,28 +82,16 @@ body {
   50% { transform: scale(1.05); }
 }
 
-@keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
-}
-
 .animate-float {
   animation: float 3s ease-in-out infinite;
 }
 
 .animate-fade-in-up {
-  animation: fadeInUp 0.6s ease-out forwards;
-  opacity: 0;
+  animation: fadeInUp 0.5s ease-out both;
 }
 
 .animate-pulse-soft {
   animation: pulse-soft 2s ease-in-out infinite;
-}
-
-.animate-shimmer {
-  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.4) 50%, transparent 100%);
-  background-size: 200% 100%;
-  animation: shimmer 2s ease-in-out infinite;
 }
 
 .delay-100 { animation-delay: 0.1s; }
@@ -122,15 +104,12 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .animate-float,
   .animate-fade-in-up,
-  .animate-pulse-soft,
-  .animate-shimmer {
+  .animate-pulse-soft {
     animation: none !important;
-    opacity: 1 !important;
-    transform: none !important;
   }
 }
 
-/* Prevent zoom on input focus on iOS */
+/* Prevent zoom on input focus on iOS (16px minimum) */
 @supports (-webkit-touch-callout: none) {
   input, select, textarea {
     font-size: 16px !important;
@@ -139,10 +118,10 @@ body {
 
 /* Better tap highlight on mobile */
 button, a, input, select, textarea {
-  -webkit-tap-highlight-color: rgba(236, 72, 153, 0.1);
+  -webkit-tap-highlight-color: rgba(236, 72, 153, 0.15);
 }
 
-/* Smooth focus styles for accessibility */
+/* Focus styles for accessibility */
 :focus-visible {
   outline: 2px solid #ec4899;
   outline-offset: 2px;

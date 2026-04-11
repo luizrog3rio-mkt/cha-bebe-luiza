@@ -44,11 +44,9 @@ export default function RootLayout({
   return (
     <html
       lang="pt-BR"
-      className={`${poppins.variable} ${dancingScript.variable} h-full antialiased`}
+      className={`${poppins.variable} ${dancingScript.variable} antialiased`}
     >
-      <body className="min-h-dvh flex flex-col font-sans overscroll-none">
-        {children}
-      </body>
+      <body className="min-h-screen flex flex-col font-sans">{children}</body>
     </html>
   );
 }
