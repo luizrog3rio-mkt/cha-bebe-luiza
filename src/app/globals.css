@@ -18,11 +18,6 @@
   --color-rose-400: #fb7185;
   --color-rose-500: #f43f5e;
   --color-rose-600: #e11d48;
-  --color-beige-50: #fefcf3;
-  --color-beige-100: #f5f0e1;
-  --color-beige-200: #e8dcc8;
-  --color-beige-300: #d4c4a8;
-  --color-beige-400: #c4ad8a;
   --font-sans: var(--font-poppins);
   --font-script: var(--font-dancing-script);
 }
@@ -39,42 +34,39 @@ html {
 }
 
 body {
-  background: linear-gradient(180deg, #fce7f3 0%, #fdf2f8 30%, #fef9f3 60%, #fce7f3 100%);
-  background-attachment: fixed;
+  background: #fff5f7;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
 }
 
-/* Fluid typography */
-.text-fluid-hero {
-  font-size: clamp(3.5rem, 12vw, 5rem);
+/* Scroll-triggered fade in */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
-.text-fluid-body {
-  font-size: clamp(0.9rem, 2.5vw, 1.125rem);
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
-.text-fluid-number {
-  font-size: clamp(1.75rem, 5vw, 2.25rem);
+/* Stagger children */
+.reveal-children > * {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
-/* Animations */
+.reveal-children.visible > *:nth-child(1) { transition-delay: 0s; opacity: 1; transform: translateY(0); }
+.reveal-children.visible > *:nth-child(2) { transition-delay: 0.1s; opacity: 1; transform: translateY(0); }
+.reveal-children.visible > *:nth-child(3) { transition-delay: 0.2s; opacity: 1; transform: translateY(0); }
+.reveal-children.visible > *:nth-child(4) { transition-delay: 0.3s; opacity: 1; transform: translateY(0); }
+
 @keyframes float {
   0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-8px); }
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(16px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  50% { transform: translateY(-12px); }
 }
 
 @keyframes pulse-soft {
@@ -82,36 +74,42 @@ body {
   50% { transform: scale(1.05); }
 }
 
-.animate-float {
-  animation: float 3s ease-in-out infinite;
+@keyframes scroll-hint {
+  0%, 100% { transform: translateY(0); opacity: 0.6; }
+  50% { transform: translateY(8px); opacity: 1; }
 }
 
-.animate-fade-in-up {
-  animation: fadeInUp 0.5s ease-out both;
+.animate-float {
+  animation: float 4s ease-in-out infinite;
 }
 
 .animate-pulse-soft {
   animation: pulse-soft 2s ease-in-out infinite;
 }
 
-.delay-100 { animation-delay: 0.1s; }
-.delay-200 { animation-delay: 0.2s; }
-.delay-300 { animation-delay: 0.3s; }
-.delay-400 { animation-delay: 0.4s; }
-.delay-500 { animation-delay: 0.5s; }
+.animate-scroll-hint {
+  animation: scroll-hint 2s ease-in-out infinite;
+}
+
+/* Hero gradient mesh */
+.hero-gradient {
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(252, 231, 243, 0.8) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(251, 207, 232, 0.6) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 80%, rgba(254, 242, 242, 0.7) 0%, transparent 50%),
+    linear-gradient(180deg, #fff5f7 0%, #fdf2f8 100%);
+}
 
 @media (prefers-reduced-motion: reduce) {
-  .animate-float,
-  .animate-fade-in-up,
-  .animate-pulse-soft {
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .reveal-children > * { opacity: 1; transform: none; transition: none; }
+  .animate-float, .animate-pulse-soft, .animate-scroll-hint {
     animation: none !important;
   }
 }
 
 @supports (-webkit-touch-callout: none) {
-  input, select, textarea {
-    font-size: 16px !important;
-  }
+  input, select, textarea { font-size: 16px !important; }
 }
 
 button, a, input, select, textarea {
