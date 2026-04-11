@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { MapPin, Clock, Calendar, Gift } from "lucide-react";
+import { MapPin, Clock, Calendar } from "lucide-react";
 import { SectionLabel } from "./Ornament";
 
 const details = [
@@ -53,23 +53,6 @@ export default function DetailsSection() {
           ))}
         </div>
 
-        {/* Gift */}
-        <motion.div
-          className="mt-12"
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.7 }}
-        >
-          <div className="max-w-md mx-auto bg-blush-50/60 rounded-2xl px-7 py-5 flex items-center justify-center gap-4 border border-blush-200/30">
-            <div className="w-10 h-10 rounded-full bg-white border border-blush-200/40 flex items-center justify-center flex-shrink-0 shadow-sm">
-              <Gift className="w-5 h-5 text-blush-400" />
-            </div>
-            <p className="text-blush-700/60 text-sm sm:text-base font-light">
-              Pedimos para levar{" "}
-              <span className="font-medium text-blush-600">fralda tamanho G</span>
-            </p>
-          </div>
-        </motion.div>
       </div>
     </section>
   );
