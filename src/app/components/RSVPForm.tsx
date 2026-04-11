@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Heart, Send, CheckCircle, Baby, MapPin, Clock, Calendar, Gift } from "lucide-react";
+import { Send, CheckCircle, Gift, PartyPopper } from "lucide-react";
 
 interface FormData {
   nome: string;
@@ -46,22 +46,24 @@ export default function RSVPForm() {
 
   if (submitted) {
     return (
-      <div className="text-center py-12 animate-fade-in-up">
-        <div className="animate-pulse-soft inline-block mb-6">
-          <CheckCircle className="w-20 h-20 text-pink-500 mx-auto" />
+      <div className="text-center py-8 sm:py-12 animate-fade-in-up">
+        <div className="animate-pulse-soft inline-block mb-4 sm:mb-6">
+          <CheckCircle className="w-16 h-16 sm:w-20 sm:h-20 text-pink-500 mx-auto" />
         </div>
-        <h3 className="font-script text-4xl text-pink-600 mb-4">
+        <h3 className="font-script text-3xl sm:text-4xl text-pink-600 mb-3">
           Presença Confirmada!
         </h3>
-        <p className="text-beige-400 text-lg mb-2">
-          Obrigado, <span className="font-semibold text-pink-500">{formData.nome}</span>!
+        <p className="text-pink-400 text-base sm:text-lg mb-1.5">
+          Obrigado,{" "}
+          <span className="font-semibold text-pink-500">{formData.nome}</span>!
         </p>
-        <p className="text-beige-400">
+        <p className="text-pink-400 text-sm sm:text-base flex items-center justify-center gap-1.5">
+          <PartyPopper className="w-4 h-4" />
           A Luiza e a família estão ansiosos para te ver!
         </p>
-        <div className="mt-8 p-4 bg-pink-50 rounded-2xl border border-pink-200">
+        <div className="mt-6 sm:mt-8 p-3.5 sm:p-4 bg-pink-50 rounded-xl sm:rounded-2xl border border-pink-200">
           <p className="text-pink-600 text-sm flex items-center justify-center gap-2">
-            <Gift className="w-4 h-4" />
+            <Gift className="w-4 h-4 flex-shrink-0" />
             Lembre-se: fralda tamanho G
           </p>
         </div>
@@ -70,7 +72,8 @@ export default function RSVPForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-5">
+    <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
+      {/* Nome */}
       <div>
         <label
           htmlFor="nome"
@@ -81,14 +84,18 @@ export default function RSVPForm() {
         <input
           type="text"
           id="nome"
+          name="nome"
           required
+          autoComplete="name"
+          enterKeyHint="next"
           value={formData.nome}
           onChange={(e) => setFormData({ ...formData, nome: e.target.value })}
-          className="w-full px-4 py-3 rounded-xl border-2 border-pink-200 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-200 transition-all bg-white/80 text-pink-900 placeholder-pink-300"
+          className="w-full px-4 py-3.5 rounded-xl border-2 border-pink-200 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-200/50 transition-all bg-white/80 text-pink-900 placeholder-pink-300 text-base"
           placeholder="Digite seu nome"
         />
       </div>
 
+      {/* Telefone */}
       <div>
         <label
           htmlFor="telefone"
@@ -99,16 +106,21 @@ export default function RSVPForm() {
         <input
           type="tel"
           id="telefone"
+          name="telefone"
           required
+          autoComplete="tel"
+          inputMode="tel"
+          enterKeyHint="next"
           value={formData.telefone}
           onChange={(e) =>
             setFormData({ ...formData, telefone: e.target.value })
           }
-          className="w-full px-4 py-3 rounded-xl border-2 border-pink-200 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-200 transition-all bg-white/80 text-pink-900 placeholder-pink-300"
+          className="w-full px-4 py-3.5 rounded-xl border-2 border-pink-200 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-200/50 transition-all bg-white/80 text-pink-900 placeholder-pink-300 text-base"
           placeholder="(00) 00000-0000"
         />
       </div>
 
+      {/* Acompanhantes */}
       <div>
         <label
           htmlFor="acompanhantes"
@@ -118,11 +130,12 @@ export default function RSVPForm() {
         </label>
         <select
           id="acompanhantes"
+          name="acompanhantes"
           value={formData.acompanhantes}
           onChange={(e) =>
             setFormData({ ...formData, acompanhantes: e.target.value })
           }
-          className="w-full px-4 py-3 rounded-xl border-2 border-pink-200 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-200 transition-all bg-white/80 text-pink-900"
+          className="w-full px-4 py-3.5 rounded-xl border-2 border-pink-200 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-200/50 transition-all bg-white/80 text-pink-900 text-base appearance-none bg-[url('data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2212%22%20height%3D%2212%22%20viewBox%3D%220%200%2012%2012%22%3E%3Cpath%20fill%3D%22%23ec4899%22%20d%3D%22M6%208L1%203h10z%22%2F%3E%3C%2Fsvg%3E')] bg-no-repeat bg-[right_1rem_center]"
         >
           <option value="0">Somente eu</option>
           <option value="1">+1 acompanhante</option>
@@ -133,6 +146,7 @@ export default function RSVPForm() {
         </select>
       </div>
 
+      {/* Mensagem */}
       <div>
         <label
           htmlFor="mensagem"
@@ -142,20 +156,23 @@ export default function RSVPForm() {
         </label>
         <textarea
           id="mensagem"
+          name="mensagem"
           rows={3}
+          enterKeyHint="done"
           value={formData.mensagem}
           onChange={(e) =>
             setFormData({ ...formData, mensagem: e.target.value })
           }
-          className="w-full px-4 py-3 rounded-xl border-2 border-pink-200 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-200 transition-all bg-white/80 text-pink-900 placeholder-pink-300 resize-none"
+          className="w-full px-4 py-3.5 rounded-xl border-2 border-pink-200 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-200/50 transition-all bg-white/80 text-pink-900 placeholder-pink-300 resize-none text-base"
           placeholder="Escreva algo carinhoso... (opcional)"
         />
       </div>
 
+      {/* Submit Button - min 48px height for touch target */}
       <button
         type="submit"
         disabled={isSubmitting}
-        className="w-full py-4 bg-gradient-to-r from-pink-400 to-pink-500 hover:from-pink-500 hover:to-pink-600 text-white font-semibold rounded-xl shadow-lg shadow-pink-300/50 transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2 text-lg cursor-pointer"
+        className="w-full min-h-[52px] py-3.5 sm:py-4 bg-gradient-to-r from-pink-400 to-pink-500 hover:from-pink-500 hover:to-pink-600 text-white font-semibold rounded-xl shadow-lg shadow-pink-300/40 transition-all duration-200 active:scale-[0.97] disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2.5 text-base sm:text-lg cursor-pointer select-none"
       >
         {isSubmitting ? (
           <>
