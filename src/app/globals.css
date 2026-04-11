@@ -39,7 +39,7 @@ html {
 }
 
 body {
-  background: linear-gradient(180deg, #fdf2f8 0%, #fef9f3 40%, #fce7f3 100%);
+  background: linear-gradient(180deg, #fce7f3 0%, #fdf2f8 30%, #fef9f3 60%, #fce7f3 100%);
   background-attachment: fixed;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
@@ -49,18 +49,18 @@ body {
 
 /* Fluid typography */
 .text-fluid-hero {
-  font-size: clamp(2.75rem, 10vw, 4.5rem);
+  font-size: clamp(3.5rem, 12vw, 5rem);
 }
 
 .text-fluid-body {
-  font-size: clamp(0.875rem, 2.5vw, 1.125rem);
+  font-size: clamp(0.9rem, 2.5vw, 1.125rem);
 }
 
 .text-fluid-number {
-  font-size: clamp(1.5rem, 5vw, 1.875rem);
+  font-size: clamp(1.75rem, 5vw, 2.25rem);
 }
 
-/* Animations - elements are VISIBLE by default, animate as enhancement */
+/* Animations */
 @keyframes float {
   0%, 100% { transform: translateY(0px); }
   50% { transform: translateY(-8px); }
@@ -100,7 +100,6 @@ body {
 .delay-400 { animation-delay: 0.4s; }
 .delay-500 { animation-delay: 0.5s; }
 
-/* Respect reduced motion preference */
 @media (prefers-reduced-motion: reduce) {
   .animate-float,
   .animate-fade-in-up,
@@ -109,19 +108,16 @@ body {
   }
 }
 
-/* Prevent zoom on input focus on iOS (16px minimum) */
 @supports (-webkit-touch-callout: none) {
   input, select, textarea {
     font-size: 16px !important;
   }
 }
 
-/* Better tap highlight on mobile */
 button, a, input, select, textarea {
   -webkit-tap-highlight-color: rgba(236, 72, 153, 0.15);
 }
 
-/* Focus styles for accessibility */
 :focus-visible {
   outline: 2px solid #ec4899;
   outline-offset: 2px;

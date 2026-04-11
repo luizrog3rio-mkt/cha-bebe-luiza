@@ -47,13 +47,13 @@ export default function RSVPForm() {
   if (submitted) {
     return (
       <div className="text-center py-8 animate-fade-in-up">
-        <div className="animate-pulse-soft inline-block mb-4">
+        <div className="animate-pulse-soft inline-block mb-5">
           <CheckCircle className="w-16 h-16 text-pink-500 mx-auto" />
         </div>
         <h3 className="font-script text-3xl text-pink-600 mb-3">
           Presença Confirmada!
         </h3>
-        <p className="text-pink-400 text-base mb-1">
+        <p className="text-pink-400 text-base mb-1.5">
           Obrigado,{" "}
           <span className="font-semibold text-pink-500">{formData.nome}</span>!
         </p>
@@ -61,7 +61,7 @@ export default function RSVPForm() {
           <PartyPopper className="w-4 h-4" />
           A Luiza e a família estão ansiosos para te ver!
         </p>
-        <div className="mt-6 p-3 bg-pink-50 rounded-xl border border-pink-200/60">
+        <div className="mt-6 p-3.5 bg-pink-50 rounded-xl border border-pink-200">
           <p className="text-pink-600 text-sm flex items-center justify-center gap-2">
             <Gift className="w-4 h-4 flex-shrink-0" />
             Lembre-se: fralda tamanho G
@@ -72,14 +72,14 @@ export default function RSVPForm() {
   }
 
   const inputClasses =
-    "w-full px-4 py-3 rounded-xl border-2 border-pink-200/80 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-200/50 transition-colors bg-white/70 text-pink-900 placeholder-pink-300/60 text-base";
+    "w-full px-4 py-3.5 rounded-xl border-2 border-pink-200 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-200/50 transition-colors bg-pink-50/30 text-pink-900 placeholder-pink-300/70 text-base";
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form onSubmit={handleSubmit} className="space-y-5">
       <div>
         <label
           htmlFor="nome"
-          className="block text-sm font-medium text-pink-700 mb-1.5"
+          className="block text-sm font-medium text-pink-700 mb-2"
         >
           Seu nome completo *
         </label>
@@ -100,7 +100,7 @@ export default function RSVPForm() {
       <div>
         <label
           htmlFor="telefone"
-          className="block text-sm font-medium text-pink-700 mb-1.5"
+          className="block text-sm font-medium text-pink-700 mb-2"
         >
           WhatsApp / Telefone *
         </label>
@@ -124,7 +124,7 @@ export default function RSVPForm() {
       <div>
         <label
           htmlFor="acompanhantes"
-          className="block text-sm font-medium text-pink-700 mb-1.5"
+          className="block text-sm font-medium text-pink-700 mb-2"
         >
           Quantidade de acompanhantes
         </label>
@@ -149,7 +149,7 @@ export default function RSVPForm() {
       <div>
         <label
           htmlFor="mensagem"
-          className="block text-sm font-medium text-pink-700 mb-1.5"
+          className="block text-sm font-medium text-pink-700 mb-2"
         >
           Deixe uma mensagem para a Luiza
         </label>
@@ -170,7 +170,7 @@ export default function RSVPForm() {
       <button
         type="submit"
         disabled={isSubmitting}
-        className="w-full py-3.5 bg-gradient-to-r from-pink-400 to-pink-500 hover:from-pink-500 hover:to-pink-600 text-white font-semibold rounded-xl shadow-md shadow-pink-300/30 transition-all duration-200 active:scale-[0.97] disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2 text-base cursor-pointer select-none"
+        className="w-full py-4 bg-gradient-to-r from-pink-400 to-pink-500 hover:from-pink-500 hover:to-pink-600 text-white font-semibold rounded-xl shadow-lg shadow-pink-400/30 transition-all duration-200 active:scale-[0.97] disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2.5 text-base cursor-pointer select-none mt-2"
       >
         {isSubmitting ? (
           <>
