@@ -5,90 +5,120 @@ import { ChevronDown } from "lucide-react";
 
 export default function HeroSection() {
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden px-6">
-      {/* Animated gradient orbs */}
-      <div className="absolute inset-0 z-0">
-        <div className="gradient-orb gradient-orb-1" />
-        <div className="gradient-orb gradient-orb-2" />
-        <div className="gradient-orb gradient-orb-3" />
-      </div>
-
-      {/* Grain overlay */}
-      <div
-        className="absolute inset-0 z-[1] opacity-[0.03]"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
-        }}
-      />
-
-      <div className="relative z-10 text-center max-w-2xl mx-auto">
-        {/* Badge */}
+    <section className="hero-bg pattern-overlay relative min-h-screen flex flex-col items-center justify-center overflow-hidden px-6">
+      <div className="relative z-10 text-center max-w-xl mx-auto">
+        {/* Decorative top ornament */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          className="mb-6"
+          initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
+          transition={{ duration: 1, delay: 0.3 }}
         >
-          <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full glass text-pink-300 text-xs sm:text-sm tracking-[0.25em] uppercase font-medium mb-8">
-            <span className="w-1.5 h-1.5 rounded-full bg-pink-400 animate-pulse" />
-            Chá de Bebê
-          </span>
+          <svg
+            className="mx-auto text-gold-300"
+            width="120"
+            height="40"
+            viewBox="0 0 120 40"
+            fill="none"
+          >
+            <path
+              d="M60 5 C45 5, 30 15, 15 20 C10 22, 5 20, 2 18"
+              stroke="currentColor"
+              strokeWidth="1"
+              fill="none"
+              opacity="0.6"
+            />
+            <path
+              d="M60 5 C75 5, 90 15, 105 20 C110 22, 115 20, 118 18"
+              stroke="currentColor"
+              strokeWidth="1"
+              fill="none"
+              opacity="0.6"
+            />
+            <circle cx="60" cy="5" r="2" fill="currentColor" opacity="0.4" />
+            <path
+              d="M50 35 C55 30, 55 25, 60 20 C65 25, 65 30, 70 35"
+              stroke="currentColor"
+              strokeWidth="0.8"
+              fill="none"
+              opacity="0.3"
+            />
+          </svg>
         </motion.div>
 
-        {/* Name with reveal */}
+        {/* Label */}
+        <motion.p
+          className="text-gold-500 text-xs sm:text-sm tracking-[0.35em] uppercase font-medium mb-4"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.5 }}
+        >
+          Chá de Bebê
+        </motion.p>
+
+        {/* Name - THE star */}
         <motion.h1
-          className="font-script text-8xl sm:text-9xl md:text-[10rem] text-white text-glow leading-none mb-8"
-          initial={{ opacity: 0, scale: 0.8, y: 40 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ duration: 1.2, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          className="font-script text-[5.5rem] sm:text-[8rem] md:text-[10rem] text-blush-500 leading-[0.85] mb-6"
+          initial={{ opacity: 0, scale: 0.85 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1.4, delay: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          style={{
+            textShadow: "0 4px 30px rgba(212, 70, 104, 0.15)",
+          }}
         >
           Luiza
         </motion.h1>
 
-        {/* Tagline - word by word */}
-        <div className="mb-12 overflow-hidden">
-          {["Pessoal, eu estou quase chegando!", "Mamãe e papai estão esperando por você."].map(
-            (line, i) => (
-              <motion.p
-                key={i}
-                className="text-white/50 text-base sm:text-lg leading-relaxed"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 1.0 + i * 0.2 }}
-              >
-                {line}
-              </motion.p>
-            )
-          )}
-        </div>
-
-        {/* CTA Button */}
+        {/* Elegant divider */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          className="flex items-center justify-center gap-3 mb-8"
+          initial={{ opacity: 0, scaleX: 0 }}
+          animate={{ opacity: 1, scaleX: 1 }}
+          transition={{ duration: 0.8, delay: 1.2 }}
+        >
+          <div className="h-px w-16 bg-gradient-to-r from-transparent to-gold-300/60" />
+          <div className="w-1.5 h-1.5 rounded-full bg-gold-400/40" />
+          <div className="h-px w-16 bg-gradient-to-l from-transparent to-gold-300/60" />
+        </motion.div>
+
+        {/* Message */}
+        <motion.p
+          className="font-[family-name:var(--font-cormorant)] text-xl sm:text-2xl text-blush-800/50 leading-relaxed italic max-w-sm mx-auto mb-14"
+          initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1.5 }}
         >
+          Pessoal, eu estou quase chegando!
+          <br />
+          Mamãe e papai estão esperando por você.
+        </motion.p>
+
+        {/* CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 1.8 }}
+        >
           <a
             href="#confirmar"
-            className="btn-shimmer inline-flex items-center gap-3 px-10 py-4 sm:px-12 sm:py-5 bg-gradient-to-r from-pink-500 to-rose-400 text-white font-semibold rounded-full shadow-2xl shadow-pink-500/25 hover:shadow-pink-500/40 hover:scale-105 transition-all duration-300 text-base sm:text-lg"
+            className="btn-gold inline-flex items-center gap-2 px-10 py-4 sm:px-14 sm:py-5 bg-gradient-to-r from-blush-400 to-blush-500 text-white font-medium rounded-full shadow-xl shadow-blush-300/30 hover:shadow-blush-400/40 hover:scale-[1.03] transition-all duration-500 text-sm sm:text-base tracking-wide"
           >
             Confirmar Presença
           </a>
         </motion.div>
       </div>
 
-      {/* Scroll indicator */}
+      {/* Scroll hint */}
       <motion.div
-        className="absolute bottom-10 left-1/2 -translate-x-1/2"
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 2.5 }}
+        transition={{ delay: 2.8, duration: 0.6 }}
       >
-        <div className="flex flex-col items-center gap-2">
-          <span className="text-white/20 text-[10px] uppercase tracking-[0.3em]">
-            Role
-          </span>
-          <ChevronDown className="w-5 h-5 text-white/30 animate-bounce-slow" />
-        </div>
+        <span className="text-blush-300/50 text-[9px] uppercase tracking-[0.3em] font-light">
+          Deslize
+        </span>
+        <ChevronDown className="w-4 h-4 text-blush-300/40 animate-float-down" />
       </motion.div>
     </section>
   );

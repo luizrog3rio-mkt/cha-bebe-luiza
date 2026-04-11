@@ -1,11 +1,11 @@
 import type { Metadata, Viewport } from "next";
-import { Poppins, Dancing_Script } from "next/font/google";
+import { Poppins, Dancing_Script, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
 
 const poppins = Poppins({
   variable: "--font-poppins",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["300", "400", "500", "600"],
   display: "swap",
 });
 
@@ -16,12 +16,19 @@ const dancingScript = Dancing_Script({
   display: "swap",
 });
 
+const cormorant = Cormorant_Garamond({
+  variable: "--font-cormorant",
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600"],
+  display: "swap",
+});
+
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
   viewportFit: "cover",
-  themeColor: "#0a0a0a",
+  themeColor: "#fdfaf6",
 };
 
 export const metadata: Metadata = {
@@ -44,7 +51,7 @@ export default function RootLayout({
   return (
     <html
       lang="pt-BR"
-      className={`${poppins.variable} ${dancingScript.variable} antialiased`}
+      className={`${poppins.variable} ${dancingScript.variable} ${cormorant.variable} antialiased`}
     >
       <body className="min-h-screen font-sans">{children}</body>
     </html>

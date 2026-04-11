@@ -26,7 +26,7 @@ function getTimeLeft(): TimeLeft {
 export default function Countdown() {
   const [time, setTime] = useState<TimeLeft | null>(null);
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isInView = useInView(ref, { once: true, margin: "-80px" });
 
   useEffect(() => {
     setTime(getTimeLeft());
@@ -42,21 +42,21 @@ export default function Countdown() {
   ];
 
   return (
-    <div ref={ref} className="grid grid-cols-4 gap-3 sm:gap-6 max-w-md mx-auto">
+    <div ref={ref} className="grid grid-cols-4 gap-4 sm:gap-6 max-w-sm mx-auto">
       {units.map(({ value, label }, i) => (
         <motion.div
           key={label}
           className="text-center"
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 25 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: i * 0.1 }}
+          transition={{ duration: 0.6, delay: 0.15 * i }}
         >
-          <div className="glass-strong rounded-2xl sm:rounded-3xl aspect-square flex items-center justify-center glow-pink mb-3">
-            <span className="text-3xl sm:text-5xl font-bold text-white tabular-nums">
+          <div className="aspect-square rounded-2xl bg-cream-dark/80 border border-gold-200/40 flex items-center justify-center mb-2.5 shadow-sm">
+            <span className="text-3xl sm:text-4xl font-light text-blush-700 tabular-nums font-[family-name:var(--font-cormorant)]">
               {value !== null ? String(value).padStart(2, "0") : "--"}
             </span>
           </div>
-          <span className="text-[10px] sm:text-xs text-white/40 uppercase tracking-[0.2em] font-medium">
+          <span className="text-[9px] sm:text-[10px] text-blush-400 uppercase tracking-[0.25em] font-medium">
             {label}
           </span>
         </motion.div>

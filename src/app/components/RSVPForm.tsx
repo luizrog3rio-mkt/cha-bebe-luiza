@@ -2,7 +2,7 @@
 
 import { useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { ArrowRight, CheckCircle, Gift, PartyPopper } from "lucide-react";
+import { ArrowRight, CheckCircle, Gift, Sparkles } from "lucide-react";
 
 interface FormData {
   nome: string;
@@ -26,15 +26,10 @@ export default function RSVPForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-
     await new Promise((resolve) => setTimeout(resolve, 1500));
-
-    const confirmations = JSON.parse(
-      localStorage.getItem("cha-luiza-confirmations") || "[]"
-    );
+    const confirmations = JSON.parse(localStorage.getItem("cha-luiza-confirmations") || "[]");
     confirmations.push({ ...formData, confirmedAt: new Date().toISOString() });
     localStorage.setItem("cha-luiza-confirmations", JSON.stringify(confirmations));
-
     setIsSubmitting(false);
     setSubmitted(true);
   };
@@ -43,7 +38,7 @@ export default function RSVPForm() {
     return (
       <motion.div
         className="text-center py-12"
-        initial={{ opacity: 0, scale: 0.9 }}
+        initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.6 }}
       >
@@ -51,27 +46,26 @@ export default function RSVPForm() {
           className="mb-8"
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
-          transition={{ type: "spring", stiffness: 200, delay: 0.2 }}
+          transition={{ type: "spring", stiffness: 180, delay: 0.2 }}
         >
-          <div className="w-24 h-24 rounded-full bg-gradient-to-br from-pink-500 to-rose-400 flex items-center justify-center mx-auto shadow-2xl shadow-pink-500/30">
-            <CheckCircle className="w-12 h-12 text-white" />
+          <div className="w-20 h-20 rounded-full bg-gradient-to-br from-blush-300 to-blush-400 flex items-center justify-center mx-auto shadow-lg shadow-blush-200/40">
+            <CheckCircle className="w-10 h-10 text-white" />
           </div>
         </motion.div>
-        <h3 className="font-script text-5xl sm:text-6xl text-white text-glow mb-4">
+        <h3 className="font-script text-5xl text-blush-500 mb-4" style={{ textShadow: "0 2px 20px rgba(212,70,104,0.1)" }}>
           Confirmado!
         </h3>
-        <p className="text-white/60 text-lg mb-2">
-          Obrigado,{" "}
-          <span className="font-semibold text-pink-400">{formData.nome}</span>
+        <p className="text-blush-700/50 text-lg mb-2">
+          Obrigado, <span className="font-medium text-blush-600">{formData.nome}</span>
         </p>
-        <p className="text-white/40 text-sm flex items-center justify-center gap-2 mb-10">
-          <PartyPopper className="w-4 h-4" />
+        <p className="text-blush-400/60 text-sm flex items-center justify-center gap-2 mb-10">
+          <Sparkles className="w-4 h-4" />
           Te esperamos com muito carinho!
         </p>
-        <div className="inline-flex items-center gap-3 px-6 py-3 glass rounded-full">
-          <Gift className="w-4 h-4 text-pink-400" />
-          <span className="text-white/60 text-sm">
-            Lembre-se: <span className="text-pink-400 font-medium">fralda tamanho G</span>
+        <div className="inline-flex items-center gap-3 px-6 py-3 bg-blush-50 rounded-full border border-blush-200/40">
+          <Gift className="w-4 h-4 text-blush-400" />
+          <span className="text-blush-600/70 text-sm">
+            Lembre-se: <span className="font-medium text-blush-600">fralda tamanho G</span>
           </span>
         </div>
       </motion.div>
@@ -79,7 +73,12 @@ export default function RSVPForm() {
   }
 
   const inputClasses =
-    "w-full px-5 py-4 rounded-xl bg-white/[0.05] border border-white/[0.08] focus:border-pink-500/50 focus:bg-white/[0.08] focus:outline-none focus:ring-2 focus:ring-pink-500/20 transition-all duration-300 text-white placeholder-white/20 text-base";
+    "w-full px-5 py-4 rounded-xl bg-cream-dark/50 border border-gold-200/30 focus:border-blush-300 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blush-200/40 transition-all duration-300 text-blush-800 placeholder-blush-300/40 text-base";
+
+  const fields = [
+    { id: "nome", label: "Nome completo", type: "text", autoComplete: "name", inputMode: undefined, placeholder: "Seu nome completo" },
+    { id: "telefone", label: "WhatsApp", type: "tel", autoComplete: "tel", inputMode: "tel" as const, placeholder: "(00) 00000-0000" },
+  ];
 
   return (
     <motion.form
@@ -88,19 +87,16 @@ export default function RSVPForm() {
       className="space-y-5"
       initial={{ opacity: 0 }}
       animate={isInView ? { opacity: 1 } : {}}
-      transition={{ duration: 0.6 }}
+      transition={{ duration: 0.5 }}
     >
-      {[
-        { id: "nome", label: "Nome completo", type: "text", autoComplete: "name", inputMode: undefined, placeholder: "Seu nome" },
-        { id: "telefone", label: "WhatsApp", type: "tel", autoComplete: "tel", inputMode: "tel" as const, placeholder: "(00) 00000-0000" },
-      ].map((field, i) => (
+      {fields.map((field, i) => (
         <motion.div
           key={field.id}
-          initial={{ opacity: 0, x: -20 }}
-          animate={isInView ? { opacity: 1, x: 0 } : {}}
-          transition={{ duration: 0.5, delay: i * 0.1 }}
+          initial={{ opacity: 0, y: 15 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5, delay: 0.1 * i }}
         >
-          <label htmlFor={field.id} className="block text-sm font-medium text-white/50 mb-2">
+          <label htmlFor={field.id} className="block text-xs font-medium text-blush-600/60 mb-2 tracking-wide uppercase">
             {field.label}
           </label>
           <input
@@ -120,11 +116,11 @@ export default function RSVPForm() {
       ))}
 
       <motion.div
-        initial={{ opacity: 0, x: -20 }}
-        animate={isInView ? { opacity: 1, x: 0 } : {}}
+        initial={{ opacity: 0, y: 15 }}
+        animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.5, delay: 0.2 }}
       >
-        <label htmlFor="acompanhantes" className="block text-sm font-medium text-white/50 mb-2">
+        <label htmlFor="acompanhantes" className="block text-xs font-medium text-blush-600/60 mb-2 tracking-wide uppercase">
           Acompanhantes
         </label>
         <select
@@ -132,7 +128,7 @@ export default function RSVPForm() {
           name="acompanhantes"
           value={formData.acompanhantes}
           onChange={(e) => setFormData({ ...formData, acompanhantes: e.target.value })}
-          className={`${inputClasses} appearance-none bg-[url('data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2212%22%20height%3D%2212%22%20viewBox%3D%220%200%2012%2012%22%3E%3Cpath%20fill%3D%22%23ec4899%22%20d%3D%22M6%208L1%203h10z%22%2F%3E%3C%2Fsvg%3E')] bg-no-repeat bg-[right_1rem_center]`}
+          className={`${inputClasses} appearance-none bg-[url('data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2212%22%20height%3D%2212%22%20viewBox%3D%220%200%2012%2012%22%3E%3Cpath%20fill%3D%22%23d4a574%22%20d%3D%22M6%208L1%203h10z%22%2F%3E%3C%2Fsvg%3E')] bg-no-repeat bg-[right_1rem_center]`}
         >
           <option value="0">Somente eu</option>
           <option value="1">+1 acompanhante</option>
@@ -144,13 +140,12 @@ export default function RSVPForm() {
       </motion.div>
 
       <motion.div
-        initial={{ opacity: 0, x: -20 }}
-        animate={isInView ? { opacity: 1, x: 0 } : {}}
+        initial={{ opacity: 0, y: 15 }}
+        animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.5, delay: 0.3 }}
       >
-        <label htmlFor="mensagem" className="block text-sm font-medium text-white/50 mb-2">
-          Mensagem para a Luiza{" "}
-          <span className="text-white/20">(opcional)</span>
+        <label htmlFor="mensagem" className="block text-xs font-medium text-blush-600/60 mb-2 tracking-wide uppercase">
+          Mensagem para a Luiza <span className="text-blush-300/40 normal-case">(opcional)</span>
         </label>
         <textarea
           id="mensagem"
@@ -165,15 +160,15 @@ export default function RSVPForm() {
       </motion.div>
 
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 15 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.5, delay: 0.4 }}
-        className="pt-2"
+        className="pt-3"
       >
         <button
           type="submit"
           disabled={isSubmitting}
-          className="btn-shimmer w-full py-4 sm:py-5 bg-gradient-to-r from-pink-500 to-rose-400 hover:from-pink-600 hover:to-rose-500 text-white font-semibold rounded-xl shadow-2xl shadow-pink-500/20 hover:shadow-pink-500/35 hover:scale-[1.02] transition-all duration-300 active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-3 text-base sm:text-lg cursor-pointer select-none"
+          className="btn-gold w-full py-4 sm:py-5 bg-gradient-to-r from-blush-400 to-blush-500 hover:from-blush-500 hover:to-blush-600 text-white font-medium rounded-xl shadow-xl shadow-blush-300/25 hover:shadow-blush-400/35 hover:scale-[1.02] transition-all duration-500 active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-3 text-base sm:text-lg cursor-pointer select-none tracking-wide"
         >
           {isSubmitting ? (
             <>
