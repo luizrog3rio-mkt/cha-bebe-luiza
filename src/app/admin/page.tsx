@@ -7,6 +7,7 @@ interface Confirmation {
   nome: string;
   telefone: string;
   acompanhantes: string;
+  nomesAcompanhantes?: string;
   mensagem: string;
   confirmedAt: string;
 }
@@ -94,6 +95,14 @@ export default function AdminPage() {
                         {new Date(c.confirmedAt).toLocaleDateString("pt-BR")}
                       </span>
                     </div>
+                    {c.nomesAcompanhantes && (
+                      <div className="mt-3 flex items-start gap-2 bg-purple-50 rounded-lg p-3">
+                        <Users className="w-4 h-4 text-purple-400 mt-0.5 flex-shrink-0" />
+                        <p className="text-purple-600 text-sm">
+                          {c.nomesAcompanhantes}
+                        </p>
+                      </div>
+                    )}
                     {c.mensagem && (
                       <div className="mt-3 flex items-start gap-2 bg-pink-50 rounded-lg p-3">
                         <MessageCircle className="w-4 h-4 text-pink-400 mt-0.5 flex-shrink-0" />

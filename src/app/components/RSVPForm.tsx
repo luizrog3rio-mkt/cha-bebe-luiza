@@ -8,6 +8,7 @@ interface FormData {
   nome: string;
   telefone: string;
   acompanhantes: string;
+  nomesAcompanhantes: string;
   mensagem: string;
 }
 
@@ -16,6 +17,7 @@ export default function RSVPForm() {
     nome: "",
     telefone: "",
     acompanhantes: "0",
+    nomesAcompanhantes: "",
     mensagem: "",
   });
   const [submitted, setSubmitted] = useState(false);
@@ -84,7 +86,7 @@ export default function RSVPForm() {
     <motion.form
       ref={ref}
       onSubmit={handleSubmit}
-      className="space-y-5"
+      className="space-y-7"
       initial={{ opacity: 0 }}
       animate={isInView ? { opacity: 1 } : {}}
       transition={{ duration: 0.5 }}
@@ -138,6 +140,28 @@ export default function RSVPForm() {
           <option value="5">+5 ou mais</option>
         </select>
       </motion.div>
+
+      {formData.acompanhantes !== "0" && (
+        <motion.div
+          initial={{ opacity: 0, height: 0 }}
+          animate={{ opacity: 1, height: "auto" }}
+          exit={{ opacity: 0, height: 0 }}
+          transition={{ duration: 0.3 }}
+        >
+          <label htmlFor="nomesAcompanhantes" className="block text-xs font-medium text-blush-600/60 mb-2 tracking-wide uppercase">
+            Nomes dos acompanhantes
+          </label>
+          <textarea
+            id="nomesAcompanhantes"
+            name="nomesAcompanhantes"
+            rows={parseInt(formData.acompanhantes) > 2 ? 3 : 2}
+            value={formData.nomesAcompanhantes}
+            onChange={(e) => setFormData({ ...formData, nomesAcompanhantes: e.target.value })}
+            className={`${inputClasses} resize-none`}
+            placeholder={"Informe o nome de cada acompanhante\nEx: João, Maria"}
+          />
+        </motion.div>
+      )}
 
       <motion.div
         initial={{ opacity: 0, y: 15 }}
