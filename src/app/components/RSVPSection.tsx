@@ -3,7 +3,6 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import RSVPForm from "./RSVPForm";
-import { SectionLabel } from "./Ornament";
 
 export default function RSVPSection() {
   const ref = useRef(null);
@@ -22,8 +21,7 @@ export default function RSVPSection() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
         >
-          <SectionLabel>RSVP</SectionLabel>
-          <h2 className="font-[family-name:var(--font-cormorant)] text-3xl sm:text-4xl font-light text-blush-800/70 mt-3 mb-3 tracking-wide">
+          <h2 className="font-[family-name:var(--font-cormorant)] text-3xl sm:text-4xl font-light text-blush-800/70 mb-3 tracking-wide">
             Confirme sua presença
           </h2>
           <p className="text-blush-400/50 text-sm font-light">
