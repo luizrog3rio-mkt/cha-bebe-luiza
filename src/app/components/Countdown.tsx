@@ -31,42 +31,23 @@ export default function Countdown() {
     return () => clearInterval(interval);
   }, []);
 
-  if (!time) {
-    return (
-      <div className="flex justify-center gap-3 sm:gap-5">
-        {["Dias", "Horas", "Min", "Seg"].map((label) => (
-          <div key={label} className="text-center">
-            <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-white/80 border border-pink-100 flex items-center justify-center mb-1.5">
-              <span className="text-2xl sm:text-3xl font-bold text-pink-400">
-                --
-              </span>
-            </div>
-            <span className="text-[10px] sm:text-xs text-pink-400 uppercase tracking-wider font-medium">
-              {label}
-            </span>
-          </div>
-        ))}
-      </div>
-    );
-  }
-
   const units = [
-    { value: time.dias, label: "Dias" },
-    { value: time.horas, label: "Horas" },
-    { value: time.min, label: "Min" },
-    { value: time.seg, label: "Seg" },
+    { value: time?.dias ?? null, label: "Dias" },
+    { value: time?.horas ?? null, label: "Horas" },
+    { value: time?.min ?? null, label: "Min" },
+    { value: time?.seg ?? null, label: "Seg" },
   ];
 
   return (
-    <div className="flex justify-center gap-3 sm:gap-5">
+    <div className="grid grid-cols-4 gap-4 sm:gap-6 max-w-sm mx-auto">
       {units.map(({ value, label }) => (
         <div key={label} className="text-center">
-          <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-white/80 border border-pink-100 shadow-sm flex items-center justify-center mb-1.5 transition-all">
-            <span className="text-2xl sm:text-3xl font-bold text-pink-600 tabular-nums">
-              {String(value).padStart(2, "0")}
+          <div className="aspect-square rounded-2xl bg-white border border-pink-100 shadow-sm flex items-center justify-center mb-2">
+            <span className="text-3xl sm:text-4xl font-bold text-pink-600 tabular-nums">
+              {value !== null ? String(value).padStart(2, "0") : "--"}
             </span>
           </div>
-          <span className="text-[10px] sm:text-xs text-pink-400 uppercase tracking-wider font-medium">
+          <span className="text-[11px] sm:text-xs text-pink-400 uppercase tracking-wider font-medium">
             {label}
           </span>
         </div>
