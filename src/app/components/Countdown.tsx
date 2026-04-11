@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import { motion, useInView } from "framer-motion";
 
 const EVENT_DATE = new Date("2026-06-06T16:00:00-03:00");
 
@@ -24,6 +25,8 @@ function getTimeLeft(): TimeLeft {
 
 export default function Countdown() {
   const [time, setTime] = useState<TimeLeft | null>(null);
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   useEffect(() => {
     setTime(getTimeLeft());
@@ -39,18 +42,24 @@ export default function Countdown() {
   ];
 
   return (
-    <div className="grid grid-cols-4 gap-4 sm:gap-6 max-w-sm mx-auto">
-      {units.map(({ value, label }) => (
-        <div key={label} className="text-center">
-          <div className="aspect-square rounded-2xl bg-white border border-pink-100 shadow-sm flex items-center justify-center mb-2">
-            <span className="text-3xl sm:text-4xl font-bold text-pink-600 tabular-nums">
+    <div ref={ref} className="grid grid-cols-4 gap-3 sm:gap-6 max-w-md mx-auto">
+      {units.map(({ value, label }, i) => (
+        <motion.div
+          key={label}
+          className="text-center"
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: i * 0.1 }}
+        >
+          <div className="glass-strong rounded-2xl sm:rounded-3xl aspect-square flex items-center justify-center glow-pink mb-3">
+            <span className="text-3xl sm:text-5xl font-bold text-white tabular-nums">
               {value !== null ? String(value).padStart(2, "0") : "--"}
             </span>
           </div>
-          <span className="text-[11px] sm:text-xs text-pink-400 uppercase tracking-wider font-medium">
+          <span className="text-[10px] sm:text-xs text-white/40 uppercase tracking-[0.2em] font-medium">
             {label}
           </span>
-        </div>
+        </motion.div>
       ))}
     </div>
   );

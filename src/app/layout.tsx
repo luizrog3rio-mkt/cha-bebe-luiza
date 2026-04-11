@@ -21,7 +21,7 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 5,
   viewportFit: "cover",
-  themeColor: "#fdf2f8",
+  themeColor: "#0a0a0a",
 };
 
 export const metadata: Metadata = {
@@ -46,7 +46,7 @@ export default function RootLayout({
       lang="pt-BR"
       className={`${poppins.variable} ${dancingScript.variable} antialiased`}
     >
-      <body className="min-h-screen flex flex-col font-sans">{children}</body>
+      <body className="min-h-screen font-sans">{children}</body>
     </html>
   );
 }
