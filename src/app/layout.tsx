@@ -35,11 +35,23 @@ export const metadata: Metadata = {
   title: "Chá de Bebê da Luiza",
   description:
     "Confirme sua presença no chá de bebê da Luiza! Sábado, 06 de Junho, a partir das 16h no Clube CEEM.",
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/apple-icon.png",
+  },
   openGraph: {
     title: "Chá de Bebê da Luiza",
     description:
       "Pessoal, eu estou quase chegando! Mamãe e papai estão esperando por você para o meu chá de bebê!",
     type: "website",
+    images: [
+      {
+        url: "/opengraph-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Chá de Bebê da Luiza",
+      },
+    ],
   },
 };
 
