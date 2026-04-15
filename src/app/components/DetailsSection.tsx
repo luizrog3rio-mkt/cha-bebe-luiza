@@ -7,7 +7,7 @@ import { SectionLabel } from "./Ornament";
 
 const details = [
   { icon: Calendar, label: "Data", value: "06", sub: "Junho, Sábado" },
-  { icon: Clock, label: "Horário", value: "16h", sub: "A partir das" },
+  { icon: Clock, label: "Horário", value: "19h", sub: "A partir das" },
   { icon: MapPin, label: "Local", value: "Clube CEEM", sub: "Endereço do evento" },
 ];
 

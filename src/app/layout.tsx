@@ -34,7 +34,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   title: "Chá de Bebê da Luiza",
   description:
-    "Confirme sua presença no chá de bebê da Luiza! Sábado, 06 de Junho, a partir das 16h no Clube CEEM.",
+    "Confirme sua presença no chá de bebê da Luiza! Sábado, 06 de Junho, a partir das 19h no Clube CEEM.",
   icons: {
     icon: "/favicon.ico",
     apple: "/apple-icon.png",
