@@ -2,7 +2,7 @@
 
 import { useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { ArrowRight, CheckCircle, Gift, Sparkles, AlertCircle } from "lucide-react";
+import { ArrowRight, CheckCircle, Sparkles, AlertCircle } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 
 interface FormData {
@@ -74,16 +74,10 @@ export default function RSVPForm() {
         <p className="text-blush-700/50 text-lg mb-2">
           Obrigado, <span className="font-medium text-blush-600">{formData.nome}</span>
         </p>
-        <p className="text-blush-400/60 text-sm flex items-center justify-center gap-2 mb-10">
+        <p className="text-blush-400/60 text-sm flex items-center justify-center gap-2">
           <Sparkles className="w-4 h-4" />
           Te esperamos com muito carinho!
         </p>
-        <div className="inline-flex items-center gap-3 px-6 py-3 bg-blush-50 rounded-full border border-blush-200/40">
-          <Gift className="w-4 h-4 text-blush-400" />
-          <span className="text-blush-600/70 text-sm">
-            Lembre-se: <span className="font-medium text-blush-600">fralda tamanho G</span>
-          </span>
-        </div>
       </motion.div>
     );
   }
